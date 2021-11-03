@@ -6,7 +6,7 @@ const natural = require('natural')
 
 const stopwords = fs.readFileSync('./static/common_words').toString('utf-8').split('\n')
 
-export default class Test {
+export default class Search {
   public static searchKeyword(keyword: string, invertResult: any): any {
     let word = keyword.trim().toLowerCase()
     const results: ResultEntry[] = []
@@ -28,17 +28,9 @@ export default class Test {
       // Check to see if term exists in the dictionary
       Object.keys(invertResult.postings[word]).forEach((documentId) => {
         const entry: ResultEntry = {
-          documentId,
+          ranking: 0,
           title: invertResult.documents[documentId].title,
-          termFrequency: invertResult.postings[word][documentId].termFrequency,
-          results: invertResult.postings[word][documentId].positions,
-          summary: ''
-        }
-        if (invertResult.settings.removeStopWords || invertResult.settings.stemWords) {
-          entry.summary = invertResult.documents[documentId].keywordsArr.slice(entry.results[0] - 1, entry.results[0] + 10)
-        } else {
-          entry.summary = invertResult.documents[documentId].keywords.split(' ').slice
-          (entry.results[0] - 1, entry.results[0] + 10)
+          authors: invertResult.postings[word][documentId].authors,
         }
         results.push(entry)
       })

@@ -2,7 +2,7 @@ export default {
   ssr: false,
   target: 'universal',
   head: {
-    title: 'Inverted Index',
+    title: 'Vector Space Model',
     htmlAttrs: {
       lang: 'en'
     },

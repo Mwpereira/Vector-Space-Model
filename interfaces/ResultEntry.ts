@@ -1,7 +1,5 @@
 export default interface ResultEntry {
-  documentId: string;
+  ranking: number,
   title: string;
-  termFrequency: number;
-  results: number[];
-  summary: string
+  authors: string[]
 }

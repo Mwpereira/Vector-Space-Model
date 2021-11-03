@@ -1,9 +1,8 @@
 <template>
   <section class='section'>
     <section class='has-text-centered'>
-      <h1 class='title'>Inverted Index Program</h1>
-      <h2 class='is-size-5'>Completed By: Michael Pereira</h2>
-      <h2 class='is-size-5'>Student #: 500896409</h2>
+      <h1 class='title'>Vector Space Model Program</h1>
+      <h2 class='is-size-5'>Completed By: Michael Pereira & Hitarth Chudgar</h2>
     </section>
     <section class='my-5'>
       <h3 class='is-size-5 has-text-weight-bold mb-4'>Instructions</h3>

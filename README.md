@@ -1,4 +1,4 @@
-# 🔍 Inverted Index
+# 🔍 Vector Space Model
 
 This project requires [node.js](https://nodejs.org/en/download/).
 

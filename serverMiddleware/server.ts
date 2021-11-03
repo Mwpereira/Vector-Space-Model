@@ -1,6 +1,6 @@
 import express from 'express'
 import Invert from './scripts/invert'
-import Test from './scripts/test'
+import Search from './scripts/search'
 
 const app = express()
 const bodyParser = require('body-parser')
@@ -51,7 +51,7 @@ app.post('/test', (req, res) => {
       return
     }
     const startTime = Math.round(Date.now())
-    const response = Test.searchKeyword(req.body.keyword, invertResult)
+    const response = Search.searchKeyword(req.body.keyword, invertResult)
     const endTime = Math.round(Date.now())
     response.time = endTime - startTime
     res.json({ ...response })
