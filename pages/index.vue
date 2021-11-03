@@ -58,19 +58,11 @@
     </section>
     <section v-if='results' class='my-5'>
       <p class='is-size-5'><span class='has-text-weight-bold'>Results:</span> {{ results.length }} Document(s)</p>
-      <div class='mt-3'>
-        <b-field><span class='has-text-weight-bold'>Searches:</span> {{ searches }}</b-field>
-        <b-field><span class='has-text-weight-bold'>Avg. Time:</span> {{ ((time / searches) || 0).toFixed(2) || 'N/A'
-          }}ms
-        </b-field>
-      </div>
       <div v-for='result in results' :key='result.documentId'>
         <div class='box my-5'>
-          <p><span class='has-text-weight-bold'>Document Id:</span> {{ result.documentId }} </p>
+          <p><span class='has-text-weight-bold'>Ranking</span> {{ result.ranking }}</p>
           <p><span class='has-text-weight-bold'>Document Title:</span> {{ result.title }} </p>
-          <p><span class='has-text-weight-bold'>Term Frequency:</span> {{ result.termFrequency }}</p>
-          <p><span class='has-text-weight-bold'>Positions:</span> {{ result.results }}</p>
-          <p><span class='has-text-weight-bold'>Summary:</span> {{ result.summary }}</p>
+          <p><span class='has-text-weight-bold'>Authors</span> {{ result.authors }}</p>
         </div>
       </div>
     </section>
@@ -89,12 +81,10 @@ export default class Index extends Vue {
   private invertResults = null
 
   private keyword = ''
-  private time = 0
-  private searches = 0
   private results = null
 
   private async test() {
-    // Allowing one word
+    // Allowing String
     if (/\S/.test(this.keyword)) {
       await BuefyService.startLoading()
       await axios.post(`/test`, {
@@ -102,12 +92,6 @@ export default class Index extends Vue {
       }).then(response => {
         // @ts-ignore
         this.results = response.data.results
-        // @ts-ignore
-        if (this.results.length !== 0) {
-          // @ts-ignore
-          this.time += response.data.time
-          this.searches++
-        }
         BuefyService.successToast('Documents Retrieved')
       }).catch(error => {
         BuefyService.dangerToast(error.response.data.error)
@@ -118,7 +102,7 @@ export default class Index extends Vue {
 
   private async invert() {
     await BuefyService.startLoading()
-    await axios.post(`/invert`, {
+    await axios.post(`/search`, {
       removeStopWords: this.removeStopwords,
       stemWords: this.stemWords
     }).then(response => {

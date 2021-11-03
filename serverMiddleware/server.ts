@@ -42,7 +42,7 @@ app.post('/invert', (req, res) => {
   }
 })
 
-app.post('/test', (req, res) => {
+app.post('/search', (req, res) => {
   try {
     if (Object.keys(invertResult.documents).length === 0) {
       res.status(404).json({
@@ -50,10 +50,7 @@ app.post('/test', (req, res) => {
       })
       return
     }
-    const startTime = Math.round(Date.now())
     const response = Search.searchKeyword(req.body.keyword, invertResult)
-    const endTime = Math.round(Date.now())
-    response.time = endTime - startTime
     res.json({ ...response })
   } catch {
     res.status(404).json({
