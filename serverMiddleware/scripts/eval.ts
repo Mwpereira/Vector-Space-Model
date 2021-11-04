@@ -1,5 +1,5 @@
 import fs from 'fs'
-import Search from '~/serverMiddleware/scripts/search'
+import Search from '../scripts/search'
 
 const query = fs.readFileSync('./static/query.text').toString('utf-8').split('\n')
 const qrels = fs.readFileSync('./static/qrels.text').toString('utf-8').split('\n')
