@@ -25,12 +25,15 @@ export default class Eval {
         case('.I'):
           action = 'I'
           queryNumber = text.split(' ')[1]
-          this.queries[queryNumber] = {
-            query: '',
-            qrels: [],
-            searchResult: [],
-            queryId: 0,
-            documentId: 0
+          console.log(queryNumber)
+          this.queries= {
+            [queryNumber]: {
+              query: '',
+              qrels: [],
+              searchResult: [],
+              queryId: 0,
+              documentId: 0
+            }
           }
           break
         case('.W'):
@@ -55,9 +58,12 @@ export default class Eval {
       }
     }
 
-    for (let i = 0; i < qrels.length; i++) {
+    console.log(this.queries)
+
+    for (let i = 1; i < qrels.length; i++) {
       const text = qrels[i].split(' ');
       if (text[i].startsWith('0')) {
+        console.log(text[0].charAt(1))
         this.queries[text[0].charAt(1)].qrels.push(text[1])
       } else {
         this.queries[text[0]].qrels.push(text[1])

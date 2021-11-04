@@ -61,7 +61,7 @@
       <div class='columns'>
         <div class='column'>
           <b-field class='is-size-5 has-text-weight-bold mb-4'>Run Evaluation</b-field>
-          <b-button class='mt-1' @click='search'>
+          <b-button class='mt-1' @click='evaluate'>
             Run
           </b-button>
         </div>

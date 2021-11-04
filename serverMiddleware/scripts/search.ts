@@ -8,7 +8,6 @@ const stopwords = fs.readFileSync('./static/common_words').toString('utf-8').spl
 
 export default class Search {
   public static query(query: string, invertResult: any): any {
-    query = 'I am interested in articles written either by Prieve or Udo Pooch'
     const fixedQuery = query.trim().toLowerCase()
     let words = fixedQuery.split(' ')
 
