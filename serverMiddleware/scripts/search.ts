@@ -49,7 +49,7 @@ export default class Search {
     // Get Relevant Documents + Terms
     const documents: PostingEntry[] = []
     const keywords: string[] = []
-    const set = new Set();
+    const set = new Set()
     for (let i = 0; i < queryTerms.length; i++) {
       Object.keys(invertResult.postings[queryTerms[i]]).forEach((documentId: string) => {
         if (!set.has(documentId)) {
@@ -60,7 +60,7 @@ export default class Search {
             keywords.push(...invertResult.documents[documentId].keywordsArr)
           }
         }
-        set.add(documentId);
+        set.add(documentId)
       })
     }
 
@@ -102,7 +102,7 @@ export default class Search {
       return b.weight - a.weight
     })
 
-    return results;
+    return results
   }
 
   private static getCosineSimilarity(document: PostingEntry, queryVector: number[], queryWeight: number): number {

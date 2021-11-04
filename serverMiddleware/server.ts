@@ -1,6 +1,7 @@
 import express from 'express'
 import Invert from './scripts/invert'
 import Search from './scripts/search'
+import Eval from './scripts/eval'
 
 const app = express()
 const bodyParser = require('body-parser')
@@ -60,16 +61,15 @@ app.post('/search', (req, res) => {
   }
 })
 
-//
-// app.post('/eval', (req, res) => {
-//   try {
-//     Eval.evaluateIRSystem(searchResult);
-//   } catch(error) {
-//     console.log(error)
-//     res.status(404).json({
-//       error: 'Server Error'
-//     })
-//   }
-// })
+app.post('/eval', (req, res) => {
+  try {
+    Eval.evaluateIRSystem(invertResult)
+  } catch (error) {
+    console.log(error)
+    res.status(404).json({
+      error: 'Server Error'
+    })
+  }
+})
 
 module.exports = app

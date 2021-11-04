@@ -113,8 +113,8 @@ export default class Index extends Vue {
       await axios.post('/search', {
         keyword: this.keyword
       }).then(response => {
+        // @ts-ignore
         this.results = response.data.searchResult
-        // console.log()
         BuefyService.successToast('Documents Retrieved')
       }).catch(error => {
         BuefyService.dangerToast(error.response.data.error)
@@ -129,6 +129,7 @@ export default class Index extends Vue {
     await axios.post('/eval', {
       keyword: this.keyword
     }).then(response => {
+      // @ts-ignore
       this.results = response.data.results
       BuefyService.successToast('Evaluation Complete')
     }).catch(error => {
@@ -143,6 +144,7 @@ export default class Index extends Vue {
       removeStopWords: this.removeStopwords,
       stemWords: this.stemWords
     }).then(response => {
+      // @ts-ignore
       this.invertResults = response.data
       BuefyService.successToast('Dictionary & Postings Generated')
     }).catch(error => {
