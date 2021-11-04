@@ -89,6 +89,9 @@ export default class Invert {
         case('.X'):
           action = 'X'
           break
+        case('.N'):
+          action = 'N'
+          break
         default:
           switch (action) {
             case('T'):
@@ -103,6 +106,7 @@ export default class Invert {
             case('A'):
               docs[documentId].authors += text.trim()
               break
+            case('N'):
             case('K'):
               break
             case('X'):

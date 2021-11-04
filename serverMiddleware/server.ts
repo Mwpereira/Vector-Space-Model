@@ -14,6 +14,7 @@ let invertResult = {
     stemWords: false
   }
 }
+let searchResult = []
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
@@ -50,14 +51,25 @@ app.post('/search', (req, res) => {
       })
       return
     }
-    const response = Search.searchKeyword(req.body.keyword, invertResult)
-    res.json({ ...response })
-  } catch(error) {
-    console.log(error)
+    searchResult = Search.query(req.body.keyword, invertResult)
+    res.json({ searchResult })
+  } catch {
     res.status(404).json({
       error: 'Server Error'
     })
   }
 })
+
+//
+// app.post('/eval', (req, res) => {
+//   try {
+//     Eval.evaluateIRSystem(searchResult);
+//   } catch(error) {
+//     console.log(error)
+//     res.status(404).json({
+//       error: 'Server Error'
+//     })
+//   }
+// })
 
 module.exports = app

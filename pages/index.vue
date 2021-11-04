@@ -44,12 +44,24 @@
                      type='search'
                      icon-pack='fas'
                      v-model='keyword'
-                     @keydown.native.enter='test'
+                     @keydown.native.enter='search'
                      icon='search'>
             </b-input>
           </b-field>
-          <b-button class='mt-1' @click='test'>
+          <b-button class='mt-1' @click='search'>
             Search
+          </b-button>
+        </div>
+        <div class='column'>
+        </div>
+      </div>
+    </section>
+    <section class='my-5'>
+      <div class='columns'>
+        <div class='column'>
+          <b-field class='is-size-5 has-text-weight-bold mb-4'>Run Evaluation</b-field>
+          <b-button class='mt-1' @click='search'>
+            Run
           </b-button>
         </div>
         <div class='column'>
@@ -58,11 +70,20 @@
     </section>
     <section v-if='results' class='my-5'>
       <p class='is-size-5'><span class='has-text-weight-bold'>Results:</span> {{ results.length }} Document(s)</p>
-      <div v-for='result in results' :key='result.documentId'>
+      <div v-for='(result, index) in results' :key='result'>
         <div class='box my-5'>
-          <p><span class='has-text-weight-bold'>Ranking</span> {{ result.ranking }}</p>
+          <p><span class='has-text-weight-bold'>Ranking</span> {{ index + 1 }}</p>
           <p><span class='has-text-weight-bold'>Document Title:</span> {{ result.title }} </p>
-          <p><span class='has-text-weight-bold'>Authors</span> {{ result.authors }}</p>
+          <p><span class='has-text-weight-bold'>Authors:</span> {{ result.authors || 'Not Provided' }}</p>
+        </div>
+      </div>
+    </section>
+    <section v-if='eval' class='my-5'>
+      <p class='is-size-5'><span class='has-text-weight-bold'>Results:</span> {{ results.length }} Document(s)</p>
+      <div v-for='result in results' :key='result'>
+        <div class='box my-5'>
+          <p><span class='has-text-weight-bold'>Document Title:</span> {{ result.title }} </p>
+          <p><span class='has-text-weight-bold'>Authors:</span> {{ result.authors || 'Not Provided' }}</p>
         </div>
       </div>
     </section>
@@ -82,16 +103,18 @@ export default class Index extends Vue {
 
   private keyword = ''
   private results = null
+  private eval = null
 
-  private async test() {
+  private async search() {
     // Allowing String
     if (/\S/.test(this.keyword)) {
+      this.eval = null;
       await BuefyService.startLoading()
       await axios.post('/search', {
         keyword: this.keyword
       }).then(response => {
-        // @ts-ignore
-        this.results = response.data.results
+        this.results = response.data.searchResult
+        // console.log()
         BuefyService.successToast('Documents Retrieved')
       }).catch(error => {
         BuefyService.dangerToast(error.response.data.error)
@@ -100,13 +123,26 @@ export default class Index extends Vue {
     }
   }
 
+  private async evaluate() {
+    this.results = null;
+    await BuefyService.startLoading()
+    await axios.post('/eval', {
+      keyword: this.keyword
+    }).then(response => {
+      this.results = response.data.results
+      BuefyService.successToast('Evaluation Complete')
+    }).catch(error => {
+      BuefyService.dangerToast(error.response.data.error)
+    })
+    await BuefyService.stopLoading()
+  }
+
   private async invert() {
     await BuefyService.startLoading()
     await axios.post('/invert', {
       removeStopWords: this.removeStopwords,
       stemWords: this.stemWords
     }).then(response => {
-      // @ts-ignore
       this.invertResults = response.data
       BuefyService.successToast('Dictionary & Postings Generated')
     }).catch(error => {

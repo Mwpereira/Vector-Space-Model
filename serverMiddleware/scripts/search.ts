@@ -7,7 +7,7 @@ const natural = require('natural')
 const stopwords = fs.readFileSync('./static/common_words').toString('utf-8').split('\n')
 
 export default class Search {
-  public static searchKeyword(query: string, invertResult: any): any {
+  public static query(query: string, invertResult: any): any {
     query = 'I am interested in articles written either by Prieve or Udo Pooch'
     const fixedQuery = query.trim().toLowerCase()
     let words = fixedQuery.split(' ')
@@ -102,7 +102,7 @@ export default class Search {
       return b.weight - a.weight
     })
 
-    console.log(results)
+    return results;
   }
 
   private static getCosineSimilarity(document: PostingEntry, queryVector: number[], queryWeight: number): number {
