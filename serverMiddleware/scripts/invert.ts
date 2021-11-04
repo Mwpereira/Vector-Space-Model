@@ -83,13 +83,16 @@ export default class Invert {
         case('.A'):
           action = 'A'
           break
+        case('.K'):
+          action = 'K'
+          break
         case('.X'):
           action = 'X'
           break
         default:
           switch (action) {
             case('T'):
-              docs[documentId].title = text
+              docs[documentId].title += ` ${text}`
               break
             case('W'):
               docs[documentId].abstract += ` ${text}`
@@ -99,6 +102,8 @@ export default class Invert {
               break
             case('A'):
               docs[documentId].authors += text.trim()
+              break
+            case('K'):
               break
             case('X'):
               docs[documentId].citation += text.replace(/\t/g, ' ').trim()
@@ -230,22 +235,31 @@ export default class Invert {
         if (postingEntry) {
           postings[text[i]][documentId] = {
             documentId: postingEntry.documentId,
-            termFrequency: ++postingEntry.termFrequency,
-            positions: postingEntry.positions.concat(i + 1)
+            frequency: ++postingEntry.frequency,
+            termFrequency: 1 + parseFloat(Math.log10(++postingEntry.frequency).toFixed(3)),
+            positions: postingEntry.positions.concat(i + 1),
+            vector: [],
+            weight: 0
           }
         } else {
           postings[text[i]][documentId] = {
             documentId,
-            termFrequency: 1,
-            positions: [i + 1]
+            frequency: 1,
+            termFrequency: 1 + Math.log10(1),
+            positions: [i + 1],
+            vector: [],
+            weight: 0
           }
         }
       } else {
         postings[text[i]] = {
           [documentId]: {
             documentId,
-            termFrequency: 1,
-            positions: [i + 1]
+            frequency: 1,
+            termFrequency: 1 + Math.log10(1),
+            positions: [i + 1],
+            vector: [],
+            weight: 0
           }
         }
       }
@@ -293,7 +307,7 @@ export default class Invert {
           str +=
             postingValue.documentId +
             '\t' +
-            postingValue.termFrequency +
+            postingValue.frequency +
             '\t' +
             postingValue.positions +
             ';\t'

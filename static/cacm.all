@@ -4934,7 +4934,7 @@ CA611209 JB March 15, 1978  10:15 PM
 Notes on Geometric Weighted Check Digit Verification
 .W
 This note describes a method for utilizing
-geometric weight modulus 11 checking digits on a
+geometric vector modulus 11 checking digits on a
 computer which does not have either multiplication or
 division.  In addition some attempt has been made
 to show some limitations of this system.
@@ -47715,7 +47715,7 @@ with Two's Complement Binary Arithmetic
 Algorithms are presented for multiplication
 and division of unsigned integer operands in which
 the digits normally reserved for signs participate as
-significant arithmetic digits with positive weight.
+significant arithmetic digits with positive vector.
 .B
 CACM July, 1968
 .A
@@ -48261,7 +48261,7 @@ CACM June, 1968
 Gautschi, W.
 .K
 quadrature, Gaussian quadrature, numerical integration,
-weight function, orthogonal polynomials
+vector function, orthogonal polynomials
 .C
 5.16
 .N
@@ -55413,7 +55413,7 @@ CACM May, 1969
 Hill, I. D.
 .K
 quadrature, Gaussian quadrature, numerical integration,
-weight function, orthogonal polynomials
+vector function, orthogonal polynomials
 .C
 5.16
 .N
@@ -59674,7 +59674,7 @@ CACM August, 1970
 .A
 Wise Jr., W. R.
 .K
-quadrature, Gaussian quadrature, numerical integration, weight function,
+quadrature, Gaussian quadrature, numerical integration, vector function,
 orthogonal polynomials, Newton's method, successive deflation
 .C
 5.16
@@ -81897,7 +81897,7 @@ A method is described for composing musical
 rounds by computer.  This method uses some music
 theory plus additional heuristics.  Fundamental to the
 method is a set of productions together with sets
-of applicability rules and weight rules which operate
+of applicability rules and vector rules which operate
 on the productions deciding when and to what extent
 they are available for use.  Several rounds generated
 by the computer implementation of the method are
@@ -91702,7 +91702,7 @@ Reflected Gray Code and Its Applications
 .W
 Algorithms are presented to generate the n-bit
 binary reflected Gray code and codewords of
-fixed weight in that code.  Both algorithms are efficient
+fixed vector in that code.  Both algorithms are efficient
 in that the time required to generate the next
 element from the current one is constant.  Applications
 to the generation of the combinations of n things
@@ -97802,7 +97802,7 @@ CA770505 JB December 29, 1977  2:07 AM
 A Comparison of Tree-Balancing Algorithms
 .W
 Several algorithms-height-balance (i.e. AVL
-and extensions), weight-balance (i.e. BB and WB),
+and extensions), vector-balance (i.e. BB and WB),
 and total restructuring-for building balanced binary search
 trees are compared.  The criteria for comparison
 encompass theoretical aspects (e.g. path lengths) and implementation
@@ -97821,7 +97821,7 @@ CACM May, 1977
 Baer, J. L.
 Schwab, B.
 .K
-binary search trees, AVL trees, weight-balanced trees,
+binary search trees, AVL trees, vector-balanced trees,
 path length, analysis of algorithms, information
 storage and retrieval
 .C

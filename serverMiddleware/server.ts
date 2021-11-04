@@ -52,7 +52,8 @@ app.post('/search', (req, res) => {
     }
     const response = Search.searchKeyword(req.body.keyword, invertResult)
     res.json({ ...response })
-  } catch {
+  } catch(error) {
+    console.log(error)
     res.status(404).json({
       error: 'Server Error'
     })

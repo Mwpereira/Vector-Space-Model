@@ -87,7 +87,7 @@ export default class Index extends Vue {
     // Allowing String
     if (/\S/.test(this.keyword)) {
       await BuefyService.startLoading()
-      await axios.post(`/test`, {
+      await axios.post('/search', {
         keyword: this.keyword
       }).then(response => {
         // @ts-ignore
@@ -102,7 +102,7 @@ export default class Index extends Vue {
 
   private async invert() {
     await BuefyService.startLoading()
-    await axios.post(`/search`, {
+    await axios.post('/invert', {
       removeStopWords: this.removeStopwords,
       stemWords: this.stemWords
     }).then(response => {

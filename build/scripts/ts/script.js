@@ -45,7 +45,7 @@ class Invert {
                     if (postingEntry) {
                         postings[titleArr[i]][documentId] = {
                             documentId: postingEntry.documentId,
-                            termFrequency: ++postingEntry.termFrequency,
+                            termFrequency: ++postingEntry.frequency,
                             positions: postingEntry.positions.concat(i + 1),
                         };
                     }
@@ -89,7 +89,7 @@ class Invert {
                         if (postingEntry) {
                             postings[abstractArr[i]][documentId] = {
                                 documentId: postingEntry.documentId,
-                                termFrequency: ++postingEntry.termFrequency,
+                                termFrequency: ++postingEntry.frequency,
                                 positions: postingEntry.positions.concat(i + 1),
                             };
                         }
@@ -158,7 +158,7 @@ class Invert {
                     str +=
                         postingValue.documentId +
                             '\t' +
-                            postingValue.termFrequency +
+                            postingValue.frequency +
                             '\t' +
                             postingValue.positions +
                             ';\t';
