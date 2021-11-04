@@ -63,7 +63,8 @@ app.post('/search', (req, res) => {
 
 app.post('/eval', (req, res) => {
   try {
-    Eval.evaluateIRSystem(invertResult)
+    const response = Eval.evaluateIRSystem(invertResult)
+    res.json({ ...response })
   } catch (error) {
     console.log(error)
     res.status(404).json({

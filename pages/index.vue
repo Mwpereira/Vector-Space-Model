@@ -80,11 +80,12 @@
       </div>
     </section>
     <section v-if='eval' class='my-5'>
-      <p class='is-size-5'><span class='has-text-weight-bold'>Results:</span> {{ results.length }} Document(s)</p>
-      <div v-for='result in results' :key='result'>
+      <p class='is-size-5'><span class='has-text-weight-bold'>Results:</span> {{ eval.length }} Evaluation(s)</p>
+      <div v-for='result in eval' :key='result'>
         <div class='box my-5'>
-          <p><span class='has-text-weight-bold'>Document Title:</span> {{ result.title }} </p>
-          <p><span class='has-text-weight-bold'>Authors:</span> {{ result.authors || 'Not Provided' }}</p>
+          <p><span class='has-text-weight-bold'>Query Id:</span> {{ result.queryId }} </p>
+          <p><span class='has-text-weight-bold'>Query:</span> {{ result.query }}</p>
+          <p><span class='has-text-weight-bold'>MAP:</span> {{ result.map || 0 }}</p>
         </div>
       </div>
     </section>
@@ -131,7 +132,8 @@ export default class Index extends Vue {
       keyword: this.keyword
     }).then(response => {
       // @ts-ignore
-      this.results = response.data.results
+      this.eval = response.data
+      console.log(this.eval)
       BuefyService.successToast('Evaluation Complete')
     }).catch(error => {
       BuefyService.dangerToast(error.response.data.error)

@@ -8,32 +8,26 @@ export default class Eval {
   public static queries: any
 
   public static evaluateIRSystem(invertResult) {
-    this.runQuery(invertResult)
+    this.runQuery(invertResult, {})
 
-    // return {
-    //   map: this.getMAP(),
-    //   rprecision: this.getRPrecision()
-    // }
+    return this.getMAP(invertResult)
   }
 
-  private static runQuery(invertResult) {
+  private static runQuery(invertResult, queries) {
     let queryNumber = ''
     let action = ''
-    for (let i = 0; i < query.length; i++) {
+    for (let i = 0; i < query.length - 1; i++) {
       const text = query[i]
       switch (query[i].substring(0, 2)) {
         case('.I'):
           action = 'I'
           queryNumber = text.split(' ')[1]
-          console.log(queryNumber)
-          this.queries= {
-            [queryNumber]: {
-              query: '',
-              qrels: [],
-              searchResult: [],
-              queryId: 0,
-              documentId: 0
-            }
+          queries[queryNumber] = {
+            query: '',
+            qrels: [],
+            searchResult: [],
+            queryId: 0,
+            map: 0
           }
           break
         case('.W'):
@@ -48,38 +42,73 @@ export default class Eval {
         default:
           switch (action) {
             case('W'):
-              this.queries[queryNumber].query += ` ${text}`
+              queries[queryNumber].query += ` ${text}`
               break
             case('A'):
             case('N'):
-            case('K'):
               break
           }
       }
     }
 
-    console.log(this.queries)
+    delete queries['0']
 
-    for (let i = 1; i < qrels.length; i++) {
-      const text = qrels[i].split(' ');
-      if (text[i].startsWith('0')) {
-        console.log(text[0].charAt(1))
-        this.queries[text[0].charAt(1)].qrels.push(text[1])
-      } else {
-        this.queries[text[0]].qrels.push(text[1])
+    try {
+      for (let i = 0; i < qrels.length; i++) {
+        const text = qrels[i].split(' ')
+        if (text[0].startsWith('0')) {
+          queries[text[0].charAt(1)].qrels.push(text[1])
+        } else {
+          queries[text[0]].qrels.push(text[1])
+        }
       }
+    } catch {
+      console.log("Error")
     }
 
-    Object.keys(this.queries).forEach((queryId) => {
-      this.queries[queryId].searchResult = Search.query(this.queries[queryId].query, invertResult)
+    Object.keys(queries).forEach((queryId) => {
+      queries[queryId].searchResult = Search.query(queries[queryId].query, invertResult)
     })
 
-    console.log(this.queries)
+    this.queries = queries
   }
 
-  // private static getRPrecision(searchResult, invertResult) {
-  //
-  //
-  //   return
-  // }
+  private static getMAP(invertResult) {
+    const results = []
+    Object.keys(this.queries).forEach((queryId) => {
+      this.queries[queryId].qrels.sort()
+      this.queries[queryId].searchResult = Search.query(this.queries[queryId].query, invertResult)
+      this.queries[queryId].map = this.calcPrecision(queryId)
+      results.push({
+        // @ts-ignore
+        query: this.queries[queryId].query.toString(),
+        // @ts-ignore
+        queryId,
+        // @ts-ignore
+        map: this.queries[queryId].map
+      })
+    })
+
+    return results
+  }
+
+  private static calcPrecision(queryId: string) {
+    let p = 0
+    const count = 1
+    for (let i = 0; i < this.queries[queryId].searchResult.length; i++) {
+      for (let j = 0; j < this.queries[queryId].qrels.length; j++) {
+        if (this.queries[queryId].searchResult[i].documentId === this.queries[queryId].qrels[j]) {
+          p += count / j
+        }
+        if (j > i) {
+          break
+        }
+      }
+    }
+    return p  / this.queries[queryId].searchResult.length
+  }
+
+  private static getRPrecision() {
+    return 0;
+  }
 }
