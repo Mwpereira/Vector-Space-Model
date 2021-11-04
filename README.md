@@ -1,7 +1,7 @@
 # 📌 Group Members
 
-Michael Pereira
-Hitarth Chudgar (500888845)
+- Michael Pereira
+- Hitarth Chudgar (500888845)
 
 # 🔍 Vector Space Model
 
