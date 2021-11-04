@@ -1,3 +1,8 @@
+# 📌 Group Members
+
+Michael Pereira
+Hitarth Chudgar (500888845)
+
 # 🔍 Vector Space Model
 
 This project requires [node.js](https://nodejs.org/en/download/).
@@ -45,3 +50,9 @@ All files required for the assignment is found under the ```static``` directory.
 
 -   _Buefy_ - for using UI components for Vue.js based on Bulma
 -   _axios_ - for the promise based HTTP client to handle requests
+
+## 📝 Program Details
+
+###
+
+
