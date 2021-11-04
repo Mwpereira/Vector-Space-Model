@@ -10,6 +10,7 @@
         <p>1. Choose your preferred settings (you must click Invert after changing settings)</p>
         <p>2. Wait for the dictionary and postings files to generate</p>
         <p>3. Search and receive the relevant documents related to your keyword search</p>
+        <p>4. After completing the previous three steps, run the evaluation</p>
       </div>
     </section>
     <section class='my-5'>

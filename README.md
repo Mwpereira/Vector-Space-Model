@@ -1,6 +1,6 @@
 # 📌 Group Members
 
-- Michael Pereira
+- Michael Pereira (500896409)
 - Hitarth Chudgar (500888845)
 
 # 🔍 Vector Space Model
@@ -93,5 +93,3 @@ Step 3: Calculating the weighting scheme
 Combining IDF factors with TF
 
 wij= tfij* idfi
-
-
