@@ -76,16 +76,19 @@ export default class Eval {
   private static getMAP(invertResult) {
     const results = []
     Object.keys(this.queries).forEach((queryId) => {
-      this.queries[queryId].qrels.sort()
       this.queries[queryId].searchResult = Search.query(this.queries[queryId].query, invertResult)
-      this.queries[queryId].map = this.calcPrecision(queryId)
+      const data = this.calcPrecision(queryId)
+      this.queries[queryId].map = data.map
+      this.queries[queryId].rp = data.rp
       results.push({
         // @ts-ignore
         query: this.queries[queryId].query.toString(),
         // @ts-ignore
         queryId,
         // @ts-ignore
-        map: this.queries[queryId].map
+        map: this.queries[queryId].map,
+        // @ts-ignore
+        rp: this.queries[queryId].rp
       })
     })
 
@@ -94,21 +97,24 @@ export default class Eval {
 
   private static calcPrecision(queryId: string) {
     let p = 0
-    const count = 1
-    for (let i = 0; i < this.queries[queryId].searchResult.length; i++) {
-      for (let j = 0; j < this.queries[queryId].qrels.length; j++) {
-        if (this.queries[queryId].searchResult[i].documentId === this.queries[queryId].qrels[j]) {
-          p += count / j
-        }
-        if (j > i) {
-          break
+    let count = 0
+    for (let i = 0; i < this.queries[queryId].qrels.length; i++) {
+      for (let j = 0; j < this.queries[queryId].searchResult.length; j++) {
+        if (this.queries[queryId].searchResult[j].documentId === this.queries[queryId].qrels[i]) {
+          count++;
+          p += count / (i + 1)
+          break;
         }
       }
     }
-    return p  / this.queries[queryId].searchResult.length
+
+    return {
+      map: p / this.queries[queryId].searchResult.length,
+      rp: this.getRPrecision(count, this.queries[queryId].searchResult.length)
+    }
   }
 
-  private static getRPrecision() {
-    return 0;
+  private static getRPrecision(rel: number, n: number) {
+    return rel / n;
   }
 }

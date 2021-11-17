@@ -85,7 +85,8 @@
         <div class='box my-5'>
           <p><span class='has-text-weight-bold'>Query Id:</span> {{ result.queryId }} </p>
           <p><span class='has-text-weight-bold'>Query:</span> {{ result.query }}</p>
-          <p><span class='has-text-weight-bold'>MAP:</span> {{ result.map || 0 }}</p>
+          <p><span class='has-text-weight-bold'>MAP:</span> {{ (result.map ? result.map.toFixed(3) : 0) || 0 }}</p>
+          <p><span class='has-text-weight-bold'>R-Precision:</span> {{ (result.rp ? result.rp.toFixed(3) : 0) || 0 }}</p>
         </div>
       </div>
     </section>
