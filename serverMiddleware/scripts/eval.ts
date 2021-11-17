@@ -10,9 +10,12 @@ export default class Eval {
   public static evaluateIRSystem(invertResult) {
     this.runQuery(invertResult, {})
 
-    return this.getMAP(invertResult)
+    return this.getEval(invertResult)
   }
 
+  /**
+   *  Retrieves queries from query.txt and obtains their rel values from qrels
+   */
   private static runQuery(invertResult, queries) {
     let queryNumber = ''
     let action = ''
@@ -73,7 +76,10 @@ export default class Eval {
     this.queries = queries
   }
 
-  private static getMAP(invertResult) {
+  /**
+   * Handles returning the results after retrieving MAP & R-P
+   */
+  private static getEval(invertResult) {
     const results = []
     Object.keys(this.queries).forEach((queryId) => {
       this.queries[queryId].searchResult = Search.query(this.queries[queryId].query, invertResult)
@@ -95,6 +101,13 @@ export default class Eval {
     return results
   }
 
+  /**
+   * Handles receiving MAP & R-Precision
+   * MAP - Loops through query documents to see if their docs are within the relevant docs list
+   *       and increases the count if they are and adds their precision value. Afterwards the total precision is divided
+   *       by the total number of relevant documents.
+   * R-P - Uses the amount of relevant documents and divided it by the total number of documents.
+   */
   private static calcPrecision(queryId: string) {
     let p = 0
     let count = 0
@@ -114,6 +127,9 @@ export default class Eval {
     }
   }
 
+  /**
+   *  Calculate R-Precision based off the number of actual relevant docs / the total number of relevant documents
+   */
   private static getRPrecision(rel: number, n: number) {
     return rel / n;
   }

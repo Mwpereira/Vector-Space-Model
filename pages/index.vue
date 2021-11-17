@@ -41,12 +41,12 @@
         <div class='column'>
           <b-field class='is-size-5 has-text-weight-bold mb-4'>Search Documents</b-field>
           <b-field>
-            <b-input placeholder='Keyword'
+            <b-input v-model='keyword'
+                     placeholder='Keyword'
                      type='search'
                      icon-pack='fas'
-                     v-model='keyword'
-                     @keydown.native.enter='search'
-                     icon='search'>
+                     icon='search'
+                     @keydown.native.enter='search'>
             </b-input>
           </b-field>
           <b-button class='mt-1' @click='search'>
@@ -86,7 +86,8 @@
           <p><span class='has-text-weight-bold'>Query Id:</span> {{ result.queryId }} </p>
           <p><span class='has-text-weight-bold'>Query:</span> {{ result.query }}</p>
           <p><span class='has-text-weight-bold'>MAP:</span> {{ (result.map ? result.map.toFixed(3) : 0) || 0 }}</p>
-          <p><span class='has-text-weight-bold'>R-Precision:</span> {{ (result.rp ? result.rp.toFixed(3) : 0) || 0 }}</p>
+          <p><span class='has-text-weight-bold'>R-Precision:</span> {{ (result.rp ? result.rp.toFixed(3) : 0) || 0 }}
+          </p>
         </div>
       </div>
     </section>
@@ -94,7 +95,7 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue } from 'nuxt-property-decorator'
+import {Component, Vue} from 'nuxt-property-decorator'
 import axios from 'axios'
 import BuefyService from '~/services/buefy-service'
 
