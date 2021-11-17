@@ -11,6 +11,15 @@ export default class Search {
     const fixedQuery = query.trim().toLowerCase()
     let words = fixedQuery.split(' ')
 
+    for (let i = 0; i < words.length; i++) {
+      words[i] = words[i]
+        .replace(/-/g, ' ') // Hyphen Characters
+        .replace(/(?!-)[^\w\s]|_/g, ' ') // Grammatical Characters
+        .replace(/\s+/g, ' ') // Additional Space
+        .toLowerCase()
+        .trim()
+    }
+
     // Check through settings to see if adjustments are required
     if (invertResult.settings.removeStopWords || invertResult.settings.stemWords) {
       if (invertResult.settings.removeStopWords) {
@@ -27,7 +36,7 @@ export default class Search {
     const idfValues: number[] = []
     for (let i = 0; i < words.length; i++) {
       if (invertResult.dictionary[words[i]]) {
-        idfValues.push(parseFloat(Math.log10(3204 / invertResult.dictionary[words[i]]).toFixed(3)))
+        idfValues.push(parseFloat(Math.log10(3024  / invertResult.dictionary[words[i]]).toFixed(3)))
       } else {
         idfValues.push(0)
       }
@@ -39,7 +48,7 @@ export default class Search {
       queryTerms.push(words[0])
     } else {
       for (let i = 0; i < words.length; i++) {
-        if (idfValues[i] > 1.60 && idfValues[i] < 3.51) {
+        if (idfValues[i] > 1 && idfValues[i] < 4) {
           queryTerms.push(words[i])
         }
       }
@@ -133,10 +142,10 @@ export default class Search {
   }
 
   private static getIDF(invertResult: any, word: string) {
-    return invertResult.dictionary[word] ? Math.log(3204 / invertResult.dictionary[word]) : 0
+    return invertResult.dictionary[word] ? Math.log10(3204 / invertResult.dictionary[word]) : 0
   }
 
   private static getTF(invertResult: any, word: string, documentId: string) {
-    return 1 + Math.log(invertResult.postings[word][documentId].termFrequency)
+    return 1 + Math.log10(invertResult.postings[word][documentId].termFrequency)
   }
 }

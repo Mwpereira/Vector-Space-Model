@@ -66,7 +66,7 @@ term [documentId, TF [positions]]
 To find our IDF threshold value we made use of:
 Finding a set A of documents that are contenders, where K< |A| << N
 
-We made use of the index-elimination method: as it onnly considers documents containing terms whose idfexceeds a threshold, and containing many (or all) of the query terms.
+We made use of the index-elimination method: as it only considers documents containing terms whose idfexceeds a threshold, and containing many (or all) of the query terms.
 
 Our threshold values were: 
 
@@ -76,7 +76,7 @@ Hence, K values lies between 1.60 and 3.51.
 
 ### tf-idf weighting scheme
 
-We made use of the conventional weighthing scheme for tf-idf like so:
+We made use of the conventional weighting scheme for tf-idf like so:
 
 Step 1: Computing the Term Frequency(tf)
 

@@ -73,7 +73,7 @@
       <p class='is-size-5'><span class='has-text-weight-bold'>Results:</span> {{ results.length }} Document(s)</p>
       <div v-for='(result, index) in results' :key='result'>
         <div class='box my-5'>
-          <p><span class='has-text-weight-bold'>Ranking</span> {{ index + 1 }}</p>
+          <p><span class='has-text-weight-bold'>Ranking:</span> {{ index + 1 }}</p>
           <p><span class='has-text-weight-bold'>Document Title:</span> {{ result.title }} </p>
           <p><span class='has-text-weight-bold'>Authors:</span> {{ result.authors || 'Not Provided' }}</p>
         </div>
